@@ -7,9 +7,10 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "SIMS PPOB", version = "${api.version}", contact = @Contact(name = "Bagus Nuryasin", email = "nuryasinbagus@gmail.com")))
+@OpenAPIDefinition(info = @Info(title = "SIMS PPOB", version = "${api.version}", contact = @Contact(name = "Bagus Nuryasin", email = "nuryasinbagus@gmail.com")), servers = @Server(url = "${api.server.url}", description = "Production"))
 @SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
 public class OpenApi30Config {
 
