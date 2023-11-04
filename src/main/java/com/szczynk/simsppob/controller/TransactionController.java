@@ -19,9 +19,11 @@ import com.szczynk.simsppob.model.response.TransactionResponse;
 import com.szczynk.simsppob.model.response.WebResponse;
 import com.szczynk.simsppob.service.TransactionService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
+@SecurityRequirement(name = "Bearer Authentication")
 public class TransactionController {
 
     private final TransactionService transactionService;

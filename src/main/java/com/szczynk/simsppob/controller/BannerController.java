@@ -10,8 +10,11 @@ import com.szczynk.simsppob.model.response.BannerResponse;
 import com.szczynk.simsppob.model.response.WebResponse;
 import com.szczynk.simsppob.service.BannerService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/banner")
+@SecurityRequirement(name = "Bearer Authentication")
 public class BannerController {
 
     private final BannerService bannerService;

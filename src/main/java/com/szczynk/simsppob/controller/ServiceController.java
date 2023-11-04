@@ -10,8 +10,11 @@ import com.szczynk.simsppob.model.response.ServiceResponse;
 import com.szczynk.simsppob.model.response.WebResponse;
 import com.szczynk.simsppob.service.ServiceService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/services")
+@SecurityRequirement(name = "Bearer Authentication")
 public class ServiceController {
 
     private final ServiceService serviceService;

@@ -23,6 +23,7 @@ import com.szczynk.simsppob.service.ProfileService;
 
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Slf4j
 @RestController
 @RequestMapping("/profile")
+@SecurityRequirement(name = "Bearer Authentication")
 public class ProfileController {
 
     private final ProfileService profileService;
