@@ -1,7 +1,10 @@
 package com.szczynk.simsppob.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.szczynk.simsppob.model.request.LoginRequest;
@@ -21,6 +24,7 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
     public WebResponse<String> register(@Valid @RequestBody RegisterRequest request) {
 
@@ -33,6 +37,7 @@ public class AuthController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     public WebResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
 

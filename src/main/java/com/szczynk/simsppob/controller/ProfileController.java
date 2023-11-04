@@ -2,6 +2,7 @@ package com.szczynk.simsppob.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,6 +60,7 @@ public class ProfileController {
     // resolve Authentication.getPrincipal() to a method argument.
     //
     // https://www.baeldung.com/get-user-in-spring-security
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping()
     public WebResponse<ProfileResponse> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
 
@@ -71,6 +74,7 @@ public class ProfileController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/update")
     public WebResponse<ProfileResponse> updateProfile(
             @AuthenticationPrincipal UserDetails userDetails,
@@ -84,7 +88,8 @@ public class ProfileController {
                 .build();
     }
 
-    @PutMapping("/image")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping(path = "/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public WebResponse<ProfileResponse> updateProfileImage(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestParam("file") MultipartFile file) {

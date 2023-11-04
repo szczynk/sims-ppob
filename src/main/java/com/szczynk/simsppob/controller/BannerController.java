@@ -2,19 +2,18 @@ package com.szczynk.simsppob.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.szczynk.simsppob.model.response.BannerResponse;
 import com.szczynk.simsppob.model.response.WebResponse;
 import com.szczynk.simsppob.service.BannerService;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-
 @RestController
 @RequestMapping("/banner")
-@SecurityRequirement(name = "Bearer Authentication")
 public class BannerController {
 
     private final BannerService bannerService;
@@ -23,6 +22,7 @@ public class BannerController {
         this.bannerService = bannerService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping()
     public WebResponse<List<BannerResponse>> getAllBanner() {
 

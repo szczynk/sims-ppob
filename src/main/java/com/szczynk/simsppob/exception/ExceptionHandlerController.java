@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,6 +18,7 @@ import java.util.Objects;
 @RestControllerAdvice
 public class ExceptionHandlerController {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     public ResponseEntity<WebResponse<String>> httpRequestMethodNotSupportedException(
             HttpRequestMethodNotSupportedException exception) {
 
@@ -30,6 +32,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<WebResponse<String>> methodArgumentNotValidException(
             MethodArgumentNotValidException exception) {
 
@@ -45,6 +48,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<WebResponse<String>> constraintViolationException(
             ConstraintViolationException exception) {
 
@@ -56,6 +60,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(BadRequest.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<WebResponse<String>> badBadRequest(
             BadRequest exception) {
 
@@ -69,6 +74,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(ResourceNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<WebResponse<String>> resourceNotFoundException(
             ResourceNotFound exception) {
 
@@ -81,6 +87,7 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(ResourceAlreadyExisted.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<WebResponse<String>> resourceAResourceAlreadyExisted(
             ResourceAlreadyExisted exception) {
 

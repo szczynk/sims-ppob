@@ -3,12 +3,14 @@ package com.szczynk.simsppob.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.szczynk.simsppob.model.request.PaymentRequest;
@@ -32,6 +34,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/balance")
     public WebResponse<BalanceResponse> getBalance(@AuthenticationPrincipal UserDetails userDetails) {
 
@@ -45,6 +48,7 @@ public class TransactionController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/topup")
     public WebResponse<BalanceResponse> topup(
             @AuthenticationPrincipal UserDetails userDetails,
@@ -62,6 +66,7 @@ public class TransactionController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/transaction")
     public WebResponse<PaymentResponse> payment(
             @AuthenticationPrincipal UserDetails userDetails,
@@ -79,6 +84,7 @@ public class TransactionController {
                 .build();
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/transaction/history")
     public WebResponse<List<TransactionResponse>> getAllTransactions(
             @AuthenticationPrincipal UserDetails userDetails,
