@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentRequest {
 
-    @NotBlank
+    @NotBlank(message = "Service code harus diisi")
     @JsonProperty("service_code")
     private String serviceCode;
 }

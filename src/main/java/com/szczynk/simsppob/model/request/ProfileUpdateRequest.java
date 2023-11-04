@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileUpdateRequest {
-    @NotBlank
+    @NotBlank(message = "First name harus diisi")
     @JsonProperty("first_name")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "Last name harus diisi")
     @JsonProperty("last_name")
     private String lastName;
 }

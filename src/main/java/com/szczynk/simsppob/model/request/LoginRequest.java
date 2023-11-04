@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequest {
-    @Email
-    @NotBlank
+    @Email(message = "Email tidak sesuai format")
+    @NotBlank(message = "Email harus diisi")
     private String email;
 
-    @NotBlank
-    @Size(min = 8)
+    @NotBlank(message = "Password harus diisi")
+    @Size(min = 8, message = "Password minimal {min} karakter")
     private String password;
 }

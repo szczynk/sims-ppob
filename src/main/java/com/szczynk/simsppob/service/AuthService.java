@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.szczynk.simsppob.exception.ResourceAlreadyExisted;
 import com.szczynk.simsppob.model.Balance;
 import com.szczynk.simsppob.model.User;
 import com.szczynk.simsppob.model.request.LoginRequest;
@@ -20,11 +21,11 @@ import com.szczynk.simsppob.security.jwt.JwtUtils;
 @Service
 public class AuthService {
 
-    private UserRepository userRepository;
-    private BalanceRepository balanceRepository;
-    private PasswordEncoder passwordEncoder;
-    private JwtUtils jwtUtils;
-    private AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final BalanceRepository balanceRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
+    private final AuthenticationManager authenticationManager;
 
     public AuthService(
             UserRepository userRepository,
@@ -42,7 +43,7 @@ public class AuthService {
     @Transactional
     public void register(RegisterRequest request) {
         if (this.userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new ResourceAlreadyExisted("Email already exists");
         }
 
         User user = new User();

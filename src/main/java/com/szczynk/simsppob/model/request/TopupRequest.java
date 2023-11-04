@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TopupRequest {
-    @PositiveOrZero
+    @PositiveOrZero(message = "Top up tidak boleh lebih kecil dari 0")
     @JsonProperty("top_up_amount")
     private int topUpAmount;
 

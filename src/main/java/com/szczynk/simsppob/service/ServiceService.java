@@ -11,7 +11,7 @@ import com.szczynk.simsppob.repository.ServiceRepository;
 @Service
 public class ServiceService {
 
-    private ServiceRepository serviceRepository;
+    private final ServiceRepository serviceRepository;
 
     public ServiceService(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;

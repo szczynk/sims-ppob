@@ -14,7 +14,7 @@ import com.szczynk.simsppob.service.BannerService;
 @RequestMapping("/banner")
 public class BannerController {
 
-    private BannerService bannerService;
+    private final BannerService bannerService;
 
     public BannerController(BannerService bannerService) {
         this.bannerService = bannerService;

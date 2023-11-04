@@ -12,7 +12,7 @@ import com.szczynk.simsppob.repository.BannerRepository;
 @Service
 public class BannerService {
 
-    private BannerRepository bannerRepository;
+    private final BannerRepository bannerRepository;
 
     public BannerService(BannerRepository bannerRepository) {
         this.bannerRepository = bannerRepository;

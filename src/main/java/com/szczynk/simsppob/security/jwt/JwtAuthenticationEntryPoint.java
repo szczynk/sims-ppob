@@ -33,9 +33,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         body.put("status", 108);
         body.put("message", "Token tidak tidak valid atau kadaluwarsa");
         body.put("data", null);
-
-        log.error("Unauthorized error: {}", body.toString());
-
+        
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), body);
     }

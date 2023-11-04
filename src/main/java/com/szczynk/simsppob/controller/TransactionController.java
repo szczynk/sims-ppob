@@ -24,73 +24,73 @@ import jakarta.validation.Valid;
 @RestController
 public class TransactionController {
 
-        private TransactionService transactionService;
+    private final TransactionService transactionService;
 
-        public TransactionController(TransactionService transactionService) {
-                this.transactionService = transactionService;
-        }
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
-        @GetMapping("/balance")
-        public WebResponse<BalanceResponse> getBalance(@AuthenticationPrincipal UserDetails userDetails) {
+    @GetMapping("/balance")
+    public WebResponse<BalanceResponse> getBalance(@AuthenticationPrincipal UserDetails userDetails) {
 
-                // using email
-                BalanceResponse response = transactionService.getBalance(userDetails.getUsername());
+        // using email
+        BalanceResponse response = transactionService.getBalance(userDetails.getUsername());
 
-                return WebResponse.<BalanceResponse>builder()
-                                .status(0)
-                                .message("Sukses")
-                                .data(response)
-                                .build();
-        }
+        return WebResponse.<BalanceResponse>builder()
+                .status(0)
+                .message("Sukses")
+                .data(response)
+                .build();
+    }
 
-        @PostMapping("/topup")
-        public WebResponse<BalanceResponse> topup(
-                        @AuthenticationPrincipal UserDetails userDetails,
-                        @Valid @RequestBody TopupRequest request) {
+    @PostMapping("/topup")
+    public WebResponse<BalanceResponse> topup(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @Valid @RequestBody TopupRequest request) {
 
-                // using email
-                BalanceResponse response = transactionService.topup(
-                                userDetails.getUsername(),
-                                request);
+        // using email
+        BalanceResponse response = transactionService.topup(
+                userDetails.getUsername(),
+                request);
 
-                return WebResponse.<BalanceResponse>builder()
-                                .status(0)
-                                .message("Sukses")
-                                .data(response)
-                                .build();
-        }
+        return WebResponse.<BalanceResponse>builder()
+                .status(0)
+                .message("Sukses")
+                .data(response)
+                .build();
+    }
 
-        @PostMapping("/transaction")
-        public WebResponse<PaymentResponse> payment(
-                        @AuthenticationPrincipal UserDetails userDetails,
-                        @Valid @RequestBody PaymentRequest request) {
+    @PostMapping("/transaction")
+    public WebResponse<PaymentResponse> payment(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @Valid @RequestBody PaymentRequest request) {
 
-                // using email
-                PaymentResponse response = transactionService.payment(
-                                userDetails.getUsername(),
-                                request.getServiceCode());
+        // using email
+        PaymentResponse response = transactionService.payment(
+                userDetails.getUsername(),
+                request.getServiceCode());
 
-                return WebResponse.<PaymentResponse>builder()
-                                .status(0)
-                                .message("Sukses")
-                                .data(response)
-                                .build();
-        }
+        return WebResponse.<PaymentResponse>builder()
+                .status(0)
+                .message("Sukses")
+                .data(response)
+                .build();
+    }
 
-        @GetMapping("/transaction/history")
-        public WebResponse<List<TransactionResponse>> getAllTransactions(
-                        @AuthenticationPrincipal UserDetails userDetails,
-                        @RequestParam Optional<Integer> page,
-                        @RequestParam Optional<Integer> limit) {
+    @GetMapping("/transaction/history")
+    public WebResponse<List<TransactionResponse>> getAllTransactions(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam Optional<Integer> page,
+            @RequestParam Optional<Integer> limit) {
 
-                // using email
-                List<TransactionResponse> response = transactionService.getAllTransactions(
-                                userDetails.getUsername(), page, limit);
+        // using email
+        List<TransactionResponse> response = transactionService.getAllTransactions(
+                userDetails.getUsername(), page, limit);
 
-                return WebResponse.<List<TransactionResponse>>builder()
-                                .status(0)
-                                .message("Sukses")
-                                .data(response)
-                                .build();
-        }
+        return WebResponse.<List<TransactionResponse>>builder()
+                .status(0)
+                .message("Sukses")
+                .data(response)
+                .build();
+    }
 }

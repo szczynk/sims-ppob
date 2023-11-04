@@ -14,7 +14,7 @@ import com.szczynk.simsppob.service.ServiceService;
 @RequestMapping("/services")
 public class ServiceController {
 
-    private ServiceService serviceService;
+    private final ServiceService serviceService;
 
     public ServiceController(ServiceService serviceService) {
         this.serviceService = serviceService;

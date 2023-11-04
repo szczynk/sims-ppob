@@ -20,9 +20,9 @@ import com.szczynk.simsppob.service.CustomUserDetailsService;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private JwtAuthenticationEntryPoint point;
-    private JwtAuthenticationFilter filter;
-    private CustomUserDetailsService customUserDetailsService;
+    private final JwtAuthenticationEntryPoint point;
+    private final JwtAuthenticationFilter filter;
+    private final CustomUserDetailsService customUserDetailsService;
 
     public SecurityConfig(JwtAuthenticationEntryPoint point, JwtAuthenticationFilter filter,
             CustomUserDetailsService customUserDetailsService) {
@@ -51,6 +51,9 @@ public class SecurityConfig {
         return authProvider;
     }
 
+    // credits:
+    // https://www.bezkoder.com/spring-boot-jwt-authentication/
+    // https://www.learncodewithdurgesh.com/blogs/jwt-authentication-with-spring-boot-31
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 

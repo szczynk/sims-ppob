@@ -12,7 +12,7 @@ ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 CREATE SEQUENCE users_id_seq
-    START WITH 1
+    START WITH 0
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -34,7 +34,7 @@ ALTER TABLE ONLY banners
     ADD CONSTRAINT banners_pkey PRIMARY KEY (id);
 
 CREATE SEQUENCE banners_id_seq
-    START WITH 1
+    START WITH 0
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -69,7 +69,7 @@ ALTER TABLE ONLY balances
     ADD CONSTRAINT fk_user_balance FOREIGN KEY (user_id) REFERENCES users(id);
 
 CREATE SEQUENCE balances_id_seq
-    START WITH 1
+    START WITH 0
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
@@ -101,7 +101,7 @@ ALTER TABLE ONLY transactions
     ADD CONSTRAINT fk_transaction_user FOREIGN KEY (user_id) REFERENCES users(id);
 
 CREATE SEQUENCE transactions_id_seq
-    START WITH 1
+    START WITH 0
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE

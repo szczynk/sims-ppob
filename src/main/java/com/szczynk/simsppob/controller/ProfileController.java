@@ -4,15 +4,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.szczynk.simsppob.exception.BadRequest;
 import com.szczynk.simsppob.model.request.ProfileUpdateRequest;
 import com.szczynk.simsppob.model.response.ProfileResponse;
 import com.szczynk.simsppob.model.response.WebResponse;
@@ -30,13 +33,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/profile")
 public class ProfileController {
 
-    private ProfileService profileService;
+    private final ProfileService profileService;
 
     @Value("${minio.bucketName}")
     private String minioBucketName;
 
-    @Value("${minio.url}")
-    private String minioUrl;
+    @Value("${minio.publicUrl}")
+    private String minioPublicUrl;
+
+    @Value("${minio.profileImageFolderName}")
+    private String minioProfileImageFolderName;
 
     private final MinioClient minioClient;
 
@@ -82,7 +88,7 @@ public class ProfileController {
             @RequestParam("file") MultipartFile file) {
 
         if (file == null) {
-            throw new RuntimeException("Format Image tidak sesuai");
+            throw new BadRequest("Format Image tidak sesuai");
         }
 
         try (InputStream inputStream = file.getInputStream()) {
@@ -91,10 +97,13 @@ public class ProfileController {
             if (contentType != null &&
                     !contentType.equals("image/jpeg") &&
                     !contentType.equals("image/png")) {
-                throw new RuntimeException("Format Image tidak sesuai");
+                throw new BadRequest("Format Image tidak sesuai");
             }
 
-            String pathName = "/profile-image/" + file.getOriginalFilename();
+            String pathName = String.format(
+                    "/%s/%s",
+                    this.minioProfileImageFolderName,
+                    file.getOriginalFilename());
 
             minioClient.putObject(
                     PutObjectArgs.builder()
@@ -103,7 +112,7 @@ public class ProfileController {
                             .stream(inputStream, inputStream.available(), -1)
                             .build());
 
-            String uri = this.minioUrl + "/" + this.minioBucketName + pathName;
+            String uri = this.minioPublicUrl + "/" + this.minioBucketName + pathName;
 
             ProfileResponse response = profileService.updateProfileImage(userDetails.getUsername(), uri);
 
@@ -114,12 +123,7 @@ public class ProfileController {
                     .build();
         } catch (Exception e) {
             log.error(e.getMessage());
-            return WebResponse.<ProfileResponse>builder()
-                    .status(0)
-                    .message("Gagal Upload")
-                    .build();
-
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
         }
-
     }
 }
